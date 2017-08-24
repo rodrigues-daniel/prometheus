@@ -5,13 +5,14 @@
     <artifactId>prometheus</artifactId>
     <groupId>natal</groupId>
     <version>1.0.0-SNAPSHOT</version>
+    <relativePath>..\pom.xml</relativePath>
   </parent>
-  <artifactId>prometheus-web</artifactId>
+  <artifactId>controle</artifactId>
   <groupId>natal</groupId>
   <version>1.0.0-SNAPSHOT</version>
   <packaging>war</packaging>
   <build>
-    <finalName>prometheus-web</finalName>
+    <finalName>controle</finalName>
   </build>
   <dependencies>
     <dependency>

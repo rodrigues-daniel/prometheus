@@ -18,8 +18,8 @@
         </plugins>
   </build>
   <modules>
-    <module>prometheus-ear</module>
-    <module>prometheus-web</module>
+    <module>prometheus-ear</module>   
     <module>axios</module>
+    <module>controle</module>
   </modules>
 </project>
