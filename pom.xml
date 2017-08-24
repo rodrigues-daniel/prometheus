@@ -7,6 +7,15 @@
   <packaging>pom</packaging>
   <build>
     <finalName>prometheus</finalName>
+     <plugins>
+             
+            <plugin>
+                <groupId>org.wildfly.plugins</groupId>
+                <artifactId>wildfly-maven-plugin</artifactId>
+                <version>1.2.0.Final</version>
+            </plugin>
+            
+        </plugins>
   </build>
   <modules>
     <module>prometheus-ear</module>
