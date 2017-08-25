@@ -1,6 +1,6 @@
 
 
-angular.module('controle').controller('EditAtendimentoController', function($scope, $routeParams, $location, flash, AtendimentoResource ) {
+angular.module('controle').controller('EditOrdemController', function($scope, $routeParams, $location, flash, OrdemResource ) {
     var self = this;
     $scope.disabled = false;
     $scope.$location = $location;
@@ -8,22 +8,22 @@ angular.module('controle').controller('EditAtendimentoController', function($sco
     $scope.get = function() {
         var successCallback = function(data){
             self.original = data;
-            $scope.atendimento = new AtendimentoResource(self.original);
+            $scope.ordem = new OrdemResource(self.original);
         };
         var errorCallback = function() {
-            flash.setMessage({'type': 'error', 'text': 'The atendimento could not be found.'});
-            $location.path("/Atendimentos");
+            flash.setMessage({'type': 'error', 'text': 'The ordem could not be found.'});
+            $location.path("/Ordems");
         };
-        AtendimentoResource.get({AtendimentoId:$routeParams.AtendimentoId}, successCallback, errorCallback);
+        OrdemResource.get({OrdemId:$routeParams.OrdemId}, successCallback, errorCallback);
     };
 
     $scope.isClean = function() {
-        return angular.equals(self.original, $scope.atendimento);
+        return angular.equals(self.original, $scope.ordem);
     };
 
     $scope.save = function() {
         var successCallback = function(){
-            flash.setMessage({'type':'success','text':'The atendimento was updated successfully.'}, true);
+            flash.setMessage({'type':'success','text':'The ordem was updated successfully.'}, true);
             $scope.get();
         };
         var errorCallback = function(response) {
@@ -33,17 +33,17 @@ angular.module('controle').controller('EditAtendimentoController', function($sco
                 flash.setMessage({'type': 'error', 'text': 'Something broke. Retry, or cancel and start afresh.'}, true);
             }
         };
-        $scope.atendimento.$update(successCallback, errorCallback);
+        $scope.ordem.$update(successCallback, errorCallback);
     };
 
     $scope.cancel = function() {
-        $location.path("/Atendimentos");
+        $location.path("/Ordems");
     };
 
     $scope.remove = function() {
         var successCallback = function() {
-            flash.setMessage({'type': 'error', 'text': 'The atendimento was deleted.'});
-            $location.path("/Atendimentos");
+            flash.setMessage({'type': 'error', 'text': 'The ordem was deleted.'});
+            $location.path("/Ordems");
         };
         var errorCallback = function(response) {
             if(response && response.data && response.data.message) {
@@ -52,7 +52,7 @@ angular.module('controle').controller('EditAtendimentoController', function($sco
                 flash.setMessage({'type': 'error', 'text': 'Something broke. Retry, or cancel and start afresh.'}, true);
             }
         }; 
-        $scope.atendimento.$remove(successCallback, errorCallback);
+        $scope.ordem.$remove(successCallback, errorCallback);
     };
     
     

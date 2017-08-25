@@ -20,30 +20,30 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 import javax.ws.rs.core.UriBuilder;
-import natal.model.Atendimento;
+import natal.model.Ordem;
 
 /**
  * 
  */
 @Stateless
-@Path("/atendimentos")
-public class AtendimentoEndpoint {
+@Path("/ordems")
+public class OrdemEndpoint {
 	@PersistenceContext(unitName = "controle-persistence-unit")
 	private EntityManager em;
 
 	@POST
 	@Consumes("application/json")
-	public Response create(Atendimento entity) {
+	public Response create(Ordem entity) {
 		em.persist(entity);
 		return Response.created(
-				UriBuilder.fromResource(AtendimentoEndpoint.class)
+				UriBuilder.fromResource(OrdemEndpoint.class)
 						.path(String.valueOf(entity.getId())).build()).build();
 	}
 
 	@DELETE
 	@Path("/{id:[0-9][0-9]*}")
 	public Response deleteById(@PathParam("id") Long id) {
-		Atendimento entity = em.find(Atendimento.class, id);
+		Ordem entity = em.find(Ordem.class, id);
 		if (entity == null) {
 			return Response.status(Status.NOT_FOUND).build();
 		}
@@ -55,12 +55,12 @@ public class AtendimentoEndpoint {
 	@Path("/{id:[0-9][0-9]*}")
 	@Produces("application/json")
 	public Response findById(@PathParam("id") Long id) {
-		TypedQuery<Atendimento> findByIdQuery = em
+		TypedQuery<Ordem> findByIdQuery = em
 				.createQuery(
-						"SELECT DISTINCT a FROM Atendimento a WHERE a.id = :entityId ORDER BY a.id",
-						Atendimento.class);
+						"SELECT DISTINCT o FROM Ordem o WHERE o.id = :entityId ORDER BY o.id",
+						Ordem.class);
 		findByIdQuery.setParameter("entityId", id);
-		Atendimento entity;
+		Ordem entity;
 		try {
 			entity = findByIdQuery.getSingleResult();
 		} catch (NoResultException nre) {
@@ -74,26 +74,24 @@ public class AtendimentoEndpoint {
 
 	@GET
 	@Produces("application/json")
-	public List<Atendimento> listAll(
-			@QueryParam("start") Integer startPosition,
+	public List<Ordem> listAll(@QueryParam("start") Integer startPosition,
 			@QueryParam("max") Integer maxResult) {
-		TypedQuery<Atendimento> findAllQuery = em.createQuery(
-				"SELECT DISTINCT a FROM Atendimento a ORDER BY a.id",
-				Atendimento.class);
+		TypedQuery<Ordem> findAllQuery = em.createQuery(
+				"SELECT DISTINCT o FROM Ordem o ORDER BY o.id", Ordem.class);
 		if (startPosition != null) {
 			findAllQuery.setFirstResult(startPosition);
 		}
 		if (maxResult != null) {
 			findAllQuery.setMaxResults(maxResult);
 		}
-		final List<Atendimento> results = findAllQuery.getResultList();
+		final List<Ordem> results = findAllQuery.getResultList();
 		return results;
 	}
 
 	@PUT
 	@Path("/{id:[0-9][0-9]*}")
 	@Consumes("application/json")
-	public Response update(@PathParam("id") Long id, Atendimento entity) {
+	public Response update(@PathParam("id") Long id, Ordem entity) {
 		if (entity == null) {
 			return Response.status(Status.BAD_REQUEST).build();
 		}
@@ -103,7 +101,7 @@ public class AtendimentoEndpoint {
 		if (!id.equals(entity.getId())) {
 			return Response.status(Status.CONFLICT).entity(entity).build();
 		}
-		if (em.find(Atendimento.class, id) == null) {
+		if (em.find(Ordem.class, id) == null) {
 			return Response.status(Status.NOT_FOUND).build();
 		}
 		try {

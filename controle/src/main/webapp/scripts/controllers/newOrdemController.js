@@ -1,15 +1,15 @@
 
-angular.module('controle').controller('NewAtendimentoController', function ($scope, $location, locationParser, flash, AtendimentoResource ) {
+angular.module('controle').controller('NewOrdemController', function ($scope, $location, locationParser, flash, OrdemResource ) {
     $scope.disabled = false;
     $scope.$location = $location;
-    $scope.atendimento = $scope.atendimento || {};
+    $scope.ordem = $scope.ordem || {};
     
 
     $scope.save = function() {
         var successCallback = function(data,responseHeaders){
             var id = locationParser(responseHeaders);
-            flash.setMessage({'type':'success','text':'The atendimento was created successfully.'});
-            $location.path('/Atendimentos');
+            flash.setMessage({'type':'success','text':'The ordem was created successfully.'});
+            $location.path('/Ordems');
         };
         var errorCallback = function(response) {
             if(response && response.data) {
@@ -18,10 +18,10 @@ angular.module('controle').controller('NewAtendimentoController', function ($sco
                 flash.setMessage({'type': 'error', 'text': 'Something broke. Retry, or cancel and start afresh.'}, true);
             }
         };
-        AtendimentoResource.save($scope.atendimento, successCallback, errorCallback);
+        OrdemResource.save($scope.ordem, successCallback, errorCallback);
     };
     
     $scope.cancel = function() {
-        $location.path("/Atendimentos");
+        $location.path("/Ordems");
     };
 });

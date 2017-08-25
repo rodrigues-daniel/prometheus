@@ -1,6 +1,6 @@
 
 
-angular.module('controle').controller('SearchAtendimentoController', function($scope, $http, $filter, AtendimentoResource ) {
+angular.module('controle').controller('SearchOrdemController', function($scope, $http, $filter, OrdemResource ) {
 
     $scope.search={};
     $scope.currentPage = 0;
@@ -19,7 +19,7 @@ angular.module('controle').controller('SearchAtendimentoController', function($s
     };
 
     $scope.performSearch = function() {
-        $scope.searchResults = AtendimentoResource.queryAll(function(){
+        $scope.searchResults = OrdemResource.queryAll(function(){
             $scope.filteredResults = $filter('searchFilter')($scope.searchResults, $scope);
             $scope.currentPage = 0;
         });

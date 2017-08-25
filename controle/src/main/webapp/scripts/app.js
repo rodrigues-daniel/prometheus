@@ -4,9 +4,9 @@ angular.module('controle',['ngRoute','ngResource'])
   .config(['$routeProvider', function($routeProvider) {
     $routeProvider
       .when('/',{templateUrl:'views/landing.html',controller:'LandingPageController'})
-      .when('/Atendimentos',{templateUrl:'views/Atendimento/search.html',controller:'SearchAtendimentoController'})
-      .when('/Atendimentos/new',{templateUrl:'views/Atendimento/detail.html',controller:'NewAtendimentoController'})
-      .when('/Atendimentos/edit/:AtendimentoId',{templateUrl:'views/Atendimento/detail.html',controller:'EditAtendimentoController'})
+      .when('/Ordems',{templateUrl:'views/Ordem/search.html',controller:'SearchOrdemController'})
+      .when('/Ordems/new',{templateUrl:'views/Ordem/detail.html',controller:'NewOrdemController'})
+      .when('/Ordems/edit/:OrdemId',{templateUrl:'views/Ordem/detail.html',controller:'EditOrdemController'})
       .otherwise({
         redirectTo: '/'
       });
